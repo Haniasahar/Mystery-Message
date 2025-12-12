@@ -3,10 +3,14 @@ import User from "@/models/user.models";
 import { sendVerificationEmail } from "@/helpers/send_email";
 import { ApiResponse } from "@/helpers/response";
 
-export async function POST(request: Request) {
-  await dbConnect();
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
+export async function POST(request: Request) {
+  
   try {
+    await dbConnect();
+
     const { username } = await request.json();
 
     const user = await User.findOne({
