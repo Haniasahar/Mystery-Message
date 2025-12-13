@@ -5,6 +5,7 @@ import { sendVerificationEmail } from "@/helpers/send_email";
 import { ApiResponse } from "@/helpers/response";
 
 export async function POST(request: Request) {
+  console.log("haha db is gonna connect")
   await dbConnect();
 
   try {
