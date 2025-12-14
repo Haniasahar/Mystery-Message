@@ -40,15 +40,15 @@ export default function NavBar() {
         {/* Logo */}
         <Link
           href={session ? "/dashboard" : "/"}
-          className="text-lg font-bold bg-linear-to-r from-blue-500 to-purple-600 
+          className="text-lg font-bold bg-gradient-to-r from-blue-500 to-purple-600 
 bg-clip-text text-transparent hover:opacity-80 transition"
         >
           Mystery Message
         </Link>
 
-        {/* Center Welcome Message */}
+        {/* Center Welcome Message - Hidden on small screens, visible only on md+ */}
         {session && (
-          <div className="absolute left-1/2 transform -translate-x-1/2 text-center">
+          <div className="hidden md:block absolute left-1/2 -translate-x-1/2">
             <span className="text-lg font-bold opacity-80">
               Welcome, <span className="font-semibold">@{username}</span>
             </span>
@@ -57,10 +57,18 @@ bg-clip-text text-transparent hover:opacity-80 transition"
 
         {/* Right Side */}
         <div className="flex items-center gap-4">
+          {/* Optional: Show welcome on mobile in the right side if you want */}
+          {session && (
+            <span className="md:hidden text-sm font-medium opacity-80">
+              @{username}
+            </span>
+          )}
+
           {session ? (
             <Button
               onClick={() => signOut({ callbackUrl: "/" })}
-              className="rounded-md px-4 py-1.5 text-sm transition bg-red-500 text-white hover:bg-red-600"
+              // className="rounded-md px-4 py-1.5 text-sm transition bg-red-500 text-white hover:bg-red-600"
+              className="rounded-md px-4 py-1.5 text-sm transition bg-red-500 text-white hover:bg-red-600 max-[450px]:px-3 max-[450px]:py-1 max-[450px]:text-xs"
               variant="secondary"
             >
               Logout
@@ -68,14 +76,13 @@ bg-clip-text text-transparent hover:opacity-80 transition"
           ) : (
             <div className="relative flex h-9 items-center overflow-hidden rounded-full bg-muted p-1">
               <span
-                className={`absolute inset-0 w-1/2 rounded-full bg-accent transition-transform duration-500 ease-out ${
-                  pathname === "/sign-up" ? "translate-x-full" : "translate-x-0"
-                }`}
+                className={`absolute inset-0 w-1/2 rounded-full bg-accent transition-transform duration-500 ease-out ${pathname === "/sign-up" ? "translate-x-full" : "translate-x-0"
+                  }`}
               />
 
               <Link
                 href="/sign-in"
-                className="relative z-10 px-5 text-sm font-medium"
+                className="relative z-10 px-5 text-sm font-medium max-[450px]:px-3 max-[450px]:text-xs"
               >
                 <span
                   className={
@@ -90,7 +97,8 @@ bg-clip-text text-transparent hover:opacity-80 transition"
 
               <Link
                 href="/sign-up"
-                className="relative z-10 px-5 text-sm font-medium"
+                // className="relative z-10 px-5 text-sm font-medium"
+                className="relative z-10 px-5 text-sm font-medium max-[450px]:px-3 max-[450px]:text-xs"
               >
                 <span
                   className={
@@ -107,17 +115,16 @@ bg-clip-text text-transparent hover:opacity-80 transition"
 
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="relative flex items-center justify-center w-10 h-10 rounded-full border border-border bg-muted hover:bg-muted/80 transition-all"
+            //   className="relative flex items-center justify-center w-10 h-10 rounded-full border border-border bg-muted hover:bg-muted/80 transition-all"
+            className="relative flex items-center justify-center w-10 h-10 rounded-full border border-border bg-muted hover:bg-muted/80 transition-all max-[450px]:w-8 max-[450px]:h-8"
           >
             <Sun
-              className={`absolute h-6 w-6 transition-all duration-700 ease-in-out ${
-                theme === "dark" ? "-rotate-90 scale-0" : "rotate-0 scale-100"
-              }`}
+              className={`absolute h-6 w-6 transition-all duration-700 ease-in-out ${theme === "dark" ? "-rotate-90 scale-0" : "rotate-0 scale-100"
+                }`}
             />
             <Moon
-              className={`absolute h-6 w-6 text-black transition-all duration-700 ease-in-out ${
-                theme === "dark" ? "rotate-0 scale-100" : "rotate-90 scale-0"
-              }`}
+              className={`absolute h-6 w-6 text-black transition-all duration-700 ease-in-out ${theme === "dark" ? "rotate-0 scale-100" : "rotate-90 scale-0"
+                }`}
             />
           </button>
         </div>
